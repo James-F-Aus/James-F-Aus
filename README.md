@@ -1,5 +1,5 @@
 # Hello, I'm James Friedrich
-<a href="https://www.linkedin.com/in/james-friedrich-ab0390335/"><img src="https://img.shields.io/badge/-LinkedIn-0072b1?&style=for-the-badge&logo=linkedin&logoColor=white" /></a>
+<a href="www.linkedin.com/in/james-friedrich-sa2016"><img src="https://img.shields.io/badge/-LinkedIn-0072b1?&style=for-the-badge&logo=linkedin&logoColor=white" /></a>
 
 
 I have recently completed my Cyber Security Certificate and I have a profound interest in technology and a dedication to solving problems.  I love to learn and I am always seeking new knowledge.
