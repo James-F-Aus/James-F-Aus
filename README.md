@@ -56,3 +56,6 @@ My journey in computing has led me to develop a passion for cybersecurity, and I
 ## Projects
 - Detection Lab
 - SOC Automation Project
+- Weather App
+- ISS Tracker
+- Wifi Hack Automation
