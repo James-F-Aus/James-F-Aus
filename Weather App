@@ -1,0 +1,103 @@
+from datetime import datetime, timedelta
+import requests, math, os
+from tkinter import *
+
+API_KEY = os.environ["API_KEY"]
+
+MY_LAT = -34.290201 # Your latitude
+MY_LONG = 140.367086 # Your longitude
+API_END = "http://api.openweathermap.org/data/2.5/forecast"
+UNITS = "metric"
+FONT_NAME = "Arial"
+
+BG_COLOUR = "#C0B6FD"
+LETTER_COLOUR = "#8980E5"
+
+parameters = {
+    "lat": MY_LAT,
+    "lon": MY_LONG,
+    "appid": API_KEY,
+    "units": UNITS,
+    "cnt": 5
+}
+
+days = [0 ,1, 2, 3, 4]
+
+########################  GET WEATHER  #######################
+response = requests.get(url=API_END, params=parameters)
+response.raise_for_status()
+print(response)
+data = response.json()
+
+#################  UI #########################
+
+date = datetime.now()
+day2 = date + timedelta(days=1)
+day3 = date + timedelta(days=2)
+day4 = date + timedelta(days=3)
+day5 = date + timedelta(days=4)
+print(day4)
+
+window = Tk()
+window.title("Jimmy's Weather App")
+window.config(padx=50, pady=50, bg=BG_COLOUR, highlightthickness=0)
+
+canvas = Canvas(width=450, height=600, bg=BG_COLOUR, highlightthickness=0)
+background_img = PhotoImage(file="lavender.png")
+canvas.create_image(225, 300, image=background_img)
+Rain_img = PhotoImage(file="Rain.png")
+Sunny_img = PhotoImage(file="Sunny.png")
+Wind_img = PhotoImage(file="Wind.png")
+Thunder_img = PhotoImage(file="Thunder.png")
+Cloudy_img = PhotoImage(file="Mostly Cloudy.png")
+# canvas.grid(row=0, column=0)
+
+day1_label = Label(text=f"{date.strftime("%A")}: {math.floor(data["list"][0]["main"]["temp"])}°C", font=(FONT_NAME, 32, "bold"), fg=LETTER_COLOUR, bg=BG_COLOUR)
+day1_label.config(padx=10, pady=10)
+day1_label.grid(column=0, row=0, sticky="w")
+
+
+day2_label = Label(text=f"{day2.strftime("%A")}: {math.floor(data["list"][1]["main"]["temp"])}°C", font=(FONT_NAME, 32, "bold"), fg=LETTER_COLOUR, bg=BG_COLOUR)
+day2_label.config(padx=10, pady=10)
+day2_label.grid(column=0, row=1, sticky="w")
+
+
+day3_label = Label(text=f"{day3.strftime("%A")}: {math.floor(data["list"][2]["main"]["temp"])}°C", font=(FONT_NAME, 32, "bold"), fg=LETTER_COLOUR, bg=BG_COLOUR)
+day3_label.config(padx=10, pady=10)
+day3_label.grid(column=0, row=2, sticky="w")
+
+
+day4_label = Label(text=f"{day4.strftime("%A")}: {math.floor(data["list"][3]["main"]["temp"])}°C", font=(FONT_NAME, 32, "bold"), fg=LETTER_COLOUR, bg=BG_COLOUR)
+day4_label.config(padx=10, pady=10)
+day4_label.grid(column=0, row=3, sticky="w")
+
+
+day5_label = Label(text=f"{day5.strftime("%A")}: {math.floor(data["list"][4]["main"]["temp"])}°C", font=(FONT_NAME, 32, "bold"), fg=LETTER_COLOUR, bg=BG_COLOUR)
+day5_label.config(padx=10, pady=10)
+day5_label.grid(column=0, row=4, sticky="w")
+
+########################  WEATHER ICONS ###################################
+
+row = 0
+for day in days:
+    if data["list"][day]["weather"][0]["id"] == 800:
+        print("sunny")
+        label1 = Label(image=Sunny_img, bg=BG_COLOUR)
+        label1.grid(column=1, row=row)
+    elif 802 <= data["list"][day]["weather"][0]["id"] <= 804:
+        label2 = Label(image=Cloudy_img, bg=BG_COLOUR)
+        label2.grid(column=1, row=row)
+    elif 500 <= data["list"][day]["weather"][0]["id"] <= 531:
+        label3 = Label(image=Rain_img, bg=BG_COLOUR)
+        label3.grid(column=1, row=row)
+    elif 300 <= data["list"][day]["weather"][0]["id"] <= 321:
+        label4 = Label(image=Rain_img, bg=BG_COLOUR)
+        label4.grid(column=1, row=row)
+    elif 200 <= data["list"][day]["weather"][0]["id"] <= 232:
+        label5 = Label(image=Thunder_img, bg=BG_COLOUR)
+        label5.grid(column=1, row=row)
+    row += 1
+
+print(data)
+
+window.mainloop()
