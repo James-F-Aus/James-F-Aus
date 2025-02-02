@@ -54,7 +54,6 @@ My journey in computing has led me to develop a passion for cybersecurity, and I
 
 ## Projects
 - <a href="https://github.com/James-F-Aus/James-F-Aus/blob/main/Weather%20App">Weather App</a>
-- SOC Automation Project
-- Weather App
-- ISS Tracker
-- Wifi Hack Automation
+- <a href="https://github.com/James-F-Aus/James-F-Aus/blob/main/Weather%20App">SOC Automation Project</a>
+- <a href="https://github.com/James-F-Aus/James-F-Aus/blob/main/Weather%20App">ISS Tracker</a>
+- <a href="https://github.com/James-F-Aus/James-F-Aus/blob/main/Weather%20App">WIFI Attack Automation</a>
