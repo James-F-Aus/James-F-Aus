@@ -1,7 +1,7 @@
 # Hello, I'm James Friedrich
 <a href="https://www.linkedin.com/in/james-friedrich-ab0390335/"><img src="https://img.shields.io/badge/-LinkedIn-0072b1?&style=for-the-badge&logo=linkedin&logoColor=white" /></a>
 
-I have recently completed my Cyber Security Certificate.  My greatest strength is my desire to learn and expand my knowledge, especially about technology and cyber security. I also have excellent customer service skills and I love working in a team environment.  I value empathy, having fun, being collabrative, inclusive, and authentic while I work and learn.
+I have recently completed my Cyber Security Certificate.  My greatest strength is my desire to learn and expand my knowledge, especially about technology and cyber security. I also have excellent customer service skills and I love working in a team environment.  I value having fun, being collabrative, inclusive, and authentic while I work and learn.
 
 
 ## Objective
