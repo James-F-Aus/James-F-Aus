@@ -53,7 +53,7 @@ My journey in computing has led me to develop a passion for cybersecurity, and I
 </div>
 
 ## Projects
-- Detection Lab
+- <a href="https://github.com/James-F-Aus/James-F-Aus/blob/main/Weather%20App">Weather App</a>
 - SOC Automation Project
 - Weather App
 - ISS Tracker
