@@ -1,0 +1,60 @@
+import requests, time, os
+from datetime import datetime
+from twilio.rest import Client
+
+
+MY_LAT = -34.290201 # My latitude
+MY_LONG = 140.367086 # My longitude
+
+account_sid = os.environ["ACCOUNT_SID"]
+auth_token = os.environ["AUTH_TOK"]
+
+### FUNC TO CHECK IF ITS NIGHT AND ISS POSITION ###
+
+def look_up(iss_lat, iss_lon, sunr, suns, now):
+    in_range = False
+    on_time = False
+    if ((MY_LAT - 5) <= iss_lat <= (MY_LAT + 5)) and ((MY_LONG -5) <= iss_lon <= (MY_LONG + 5)):
+        in_range = True
+    if suns <= now <= sunr:
+        on_time = True
+    if on_time and in_range:
+        return True
+
+
+### GET ISS POSITION ###
+
+response = requests.get(url="http://api.open-notify.org/iss-now.json")
+response.raise_for_status()
+data = response.json()
+
+iss_latitude = float(data["iss_position"]["latitude"])
+iss_longitude = float(data["iss_position"]["longitude"])
+
+parameters = {
+    "lat": MY_LAT,
+    "lng": MY_LONG,
+    "formatted": 0,
+}
+
+### GET LOCAL SUNRISE AND SUNSET TIMES ###
+
+response = requests.get("https://api.sunrise-sunset.org/json", params=parameters)
+response.raise_for_status()
+data = response.json()
+sunrise = int(data["results"]["sunrise"].split("T")[1].split(":")[0])
+sunset = int(data["results"]["sunset"].split("T")[1].split(":")[0])
+
+time_now = datetime.now().hour
+
+### LOOP THAT CONTINUALLY CHECKS THE ISS POSITION AND CURRENT TIME ###
+
+while True:
+    time.sleep(60)
+    if look_up(iss_latitude, iss_longitude, sunrise, sunset, time_now):
+            client = Client(account_sid, auth_token)
+            message = client.messages.create(
+                body="Look up!  You should be able to see the ISS! 🚀",
+                from_="+14846522499",
+                to="+610432341632")
+    print(message.status)
